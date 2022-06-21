@@ -33,16 +33,7 @@ public class StudentList {
 		else if(args[0].contains(Constant.add)) {
 			System.out.println(Constant.loadingMassage);			
 			try {
-				String nameLine = readData();
-				BufferedWriter bufferedWriter = new BufferedWriter(
-					new FileWriter(Constant.fileName, false));
-				String addName = args[0].substring(1);
-				Date date = new Date();
-				DateFormat dateFormat = new SimpleDateFormat(Constant.dateFormat);
-				String formatDate= dateFormat.format(date);
-				bufferedWriter.write(nameLine + Constant.studentNameDivider +addName+"\nList last updated on "+formatDate);
-				bufferedWriter.flush();
-				bufferedWriter.close();
+				writeData(args[0]);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}			
@@ -101,5 +92,18 @@ public class StudentList {
 						new FileInputStream(Constant.fileName))); 
 		String nameLine = bufferReader.readLine();
 		return nameLine;
+	}
+
+	static void writeData(String args)throws Exception{
+		String nameLine = readData();
+				BufferedWriter bufferedWriter = new BufferedWriter(
+					new FileWriter(Constant.fileName, false));
+				String addName = args.substring(1);
+				Date date = new Date();
+				DateFormat dateFormat = new SimpleDateFormat(Constant.dateFormat);
+				String formatDate= dateFormat.format(date);
+				bufferedWriter.write(nameLine + Constant.studentNameDivider +addName+"\nList last updated on "+formatDate);
+				bufferedWriter.flush();
+				bufferedWriter.close();
 	}
 }
