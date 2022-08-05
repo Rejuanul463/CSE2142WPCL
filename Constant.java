@@ -10,7 +10,8 @@ public class Constant{
     public static String fileName = "students.txt";
     public static String foundMassage = " word(s) found ";
     public static String dateFormat = "dd/mm/yyyy-hh:mm:ss";
-    public static String founded = "We found it!";
+    public static String founded = "We found it at index :";
     public static String waPassed = "Wrong Argument Passed!";
+    public static String notFound = "Name not Founded";
 
 }

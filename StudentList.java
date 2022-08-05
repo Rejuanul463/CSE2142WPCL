@@ -7,27 +7,19 @@ public class StudentList {
 		if(args[0].equals(Constant.showAll)) {
 			System.out.println(Constant.loadingMassage);			
 			try {
-				String nameLine = readData();
-				String studentNames[] = nameLine.split(Constant.studentNameDivider);			
+				String studentNames[] = readData().split(Constant.studentNameDivider);			
 				for(String j : studentNames) { 
 					System.out.println(j); 
 				}
-			} catch (Exception e) {
-
-			} 
+			} catch (Exception e) {	} 
 			System.out.println(Constant.completeMassage);
 		}
 		else if(args[0].equals(Constant.randomName)) {
 			System.out.println(Constant.loadingMassage);			
 			try {
-				String studentName = readData();
-				String studentNames[] = studentName.split(Constant.studentNameDivider);	
-				Random random = new Random();
-				int len = random.nextInt(studentNames.length);
-				System.out.println(studentNames[len]);
-			} catch (Exception e) {
-
-			} 
+				String studentNames[] = readData().split(Constant.studentNameDivider);
+				System.out.println(studentNames[new Random().nextInt(studentNames.length)]);
+			} catch (Exception e) { } 
 			System.out.println(Constant.completeMassage);			
 		}
 		else if(args[0].contains(Constant.add)) {
@@ -36,49 +28,37 @@ public class StudentList {
 				writeData(args[0]);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}			
+			}
 			System.out.println(Constant.completeMassage);	
 		}
 		else if(args[0].contains(Constant.check)) {
 			System.out.println(Constant.loadingMassage);			
 			try {
-				String studentNameLine = readData();
-				String studentNames[] = studentNameLine.split(Constant.studentNameDivider);	
-				boolean done = false;
-				String argumentValue = args[0].substring(1);
-				for(int idx = 0; idx<studentNames.length && !done; idx++) {
-					if(studentNames[idx].equals(argumentValue)) {
-						System.out.println(Constant.founded);
-						done=true;
+				String studentNames[] = readData().split(Constant.studentNameDivider);
+				for(int idx = 0; idx < studentNames.length ; idx++) {
+					if(studentNames[idx].equals(args[0].substring(1))) {
+						System.out.println(Constant.founded + idx);
+						break;
+					}
+					if(idx == (studentNames.length-1)){
+						System.out.println(Constant.notFound);
 					}
 				}
-			} catch (Exception e) {
-
-			} 
-			System.out.println(Constant.completeMassage);				
+			} catch (Exception e) { } 
+			System.out.println(Constant.completeMassage);			
 		}
 		else if(args[0].contains(Constant.checker)) {
 			System.out.println(Constant.loadingMassage);			
 			try {
-				String studentName = readData();
-				char studentNames[] = studentName.toCharArray();			
-				boolean in_word = false;
-				int count=0;
+				char studentNames[] = readData().toCharArray();			
+				int count = 1;
 				for(char c:studentNames) {
 					if(c == ',') {
-						if (!in_word) {	
-							count++; 
-							in_word = true;	
-						}
-						else { 
-							in_word = false;
-						}			
+						count++;
 					}
 				}
 				System.out.println(count + Constant.foundMassage);
-			} catch (Exception e){
-
-			} 
+			} catch (Exception e){ } 
 			System.out.println(Constant.completeMassage);				
 		}
 		else{
@@ -88,22 +68,18 @@ public class StudentList {
 
 	static String readData() throws Exception{
 		BufferedReader bufferReader = new BufferedReader(
-					new InputStreamReader(
-						new FileInputStream(Constant.fileName))); 
-		String nameLine = bufferReader.readLine();
-		return nameLine;
+			new InputStreamReader(
+				new FileInputStream(Constant.fileName)));
+		return bufferReader.readLine();
 	}
 
 	static void writeData(String args)throws Exception{
 		String nameLine = readData();
 				BufferedWriter bufferedWriter = new BufferedWriter(
 					new FileWriter(Constant.fileName, false));
-				String addName = args.substring(1);
-				Date date = new Date();
-				DateFormat dateFormat = new SimpleDateFormat(Constant.dateFormat);
-				String formatDate= dateFormat.format(date);
-				bufferedWriter.write(nameLine + Constant.studentNameDivider +addName+"\nList last updated on "+formatDate);
-				bufferedWriter.flush();
-				bufferedWriter.close();
+		String formatDate= new SimpleDateFormat(Constant.dateFormat).format(new Date());
+		bufferedWriter.write(nameLine + Constant.studentNameDivider + args.substring(1) + "\nList last updated on " + formatDate);
+		bufferedWriter.flush();
+		bufferedWriter.close();
 	}
 }
