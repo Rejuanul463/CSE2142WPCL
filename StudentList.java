@@ -4,41 +4,45 @@ import java.util.*;
 public class StudentList {
 	public static void main(String[] args) {
 //		Check arguments
-		if(args[0].equals(Constant.showAll)) {											// to print all the students name
+		// to print all the students name
+		if(args[0].equals(Constant.showAll)) {
 			System.out.println(Constant.loadingMassage);			
 			try {
-				String studentNames[] = readData().split(Constant.studentNameDivider);	//read data and split on a string array		
+				//read data and split on a string array	
+				String studentNames[] = readData().split(Constant.studentNameDivider);
 				for(String studentName : studentNames) { 
 					System.out.println(studentName); 
 				}
 			} catch (Exception e) {	} 
 			System.out.println(Constant.completeMassage);
 		}
-		else if(args[0].equals(Constant.randomName)) {									// to print a Student name randomly
+		else if(args[0].equals(Constant.randomName)) {		// to print a Student name randomly
 			System.out.println(Constant.loadingMassage);			
 			try {
-				String studentNames[] = readData().split(Constant.studentNameDivider);	//read data and split on a string array
+				String studentNames[] = readData().split(Constant.studentNameDivider);
 				System.out.println(studentNames[new Random().nextInt(studentNames.length)]);
 			} catch (Exception e) { } 
 			System.out.println(Constant.completeMassage);			
 		}
-		else if(args[0].contains(Constant.add)) {										// to add a name to the student list
+		// to add a name to the student list
+		else if(args[0].contains(Constant.add)) {
 			System.out.println(Constant.loadingMassage);			
 			try {
-				writeData(args[0]);														// writing data to file method on 76th line
+				// writing data to file method on 76th line
+				writeData(args[0]);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			System.out.println(Constant.completeMassage);	
 		}
-		else if(args[0].contains(Constant.check)) {										// to check if name in given argument exists
+		else if(args[0].contains(Constant.check)) {		// to check if name in given argument exists
 			System.out.println(Constant.loadingMassage);			
 			try {
 				String studentNames[] = readData().split(Constant.studentNameDivider);
 				for(int index = 0; index < studentNames.length ; index++) {
 					if(studentNames[index].equals(args[0].substring(1))) {
 						System.out.println(Constant.founded + index);
-						break;															//break if found the name
+						break;		//break if found the name
 					}
 					if(index == (studentNames.length-1)){
 						System.out.println(Constant.notFound);
@@ -47,15 +51,17 @@ public class StudentList {
 			} catch (Exception e) { } 
 			System.out.println(Constant.completeMassage);			
 		}
-		else if(args[0].contains(Constant.counter)) {									//count the number of students name
+		else if(args[0].contains(Constant.counter)) {		//count the number of students name
 			System.out.println(Constant.loadingMassage);			
 			try {
-				String studentNames[] = readData().split(Constant.studentNameDivider);	//split Student Names by ','
-				System.out.println(studentNames.length + Constant.foundMassage);		//length of the array is the number of student in the list
+				//split Student Names by ','
+				String studentNames[] = readData().split(Constant.studentNameDivider);
+				//length of the array is the number of student in the list
+				System.out.println(studentNames.length + Constant.foundMassage);
 			} catch (Exception e){ } 
 			System.out.println(Constant.completeMassage);				
 		}
-		else{																			// to handle if wrong argument passed
+		else{	// to handle if wrong argument passed
 			System.out.println(Constant.wrongArgumentPassed);
 		}
 	}
