@@ -50,14 +50,8 @@ public class StudentList {
 		else if(args[0].contains(Constant.counter)) {									//count the number of students name
 			System.out.println(Constant.loadingMassage);			
 			try {
-				char studentNames[] = readData().toCharArray();							//split all the charecters in a charecter array
-				int count = 1;
-				for(char charecter:studentNames) {
-					if(charecter == ',') {
-						count++;
-					}
-				}
-				System.out.println(count + Constant.foundMassage);
+				String studentNames[] = readData().split(Constant.studentNameDivider);	//split Student Names by ','
+				System.out.println(studentNames.length + Constant.foundMassage);		//length of the array is the number of student in the list
 			} catch (Exception e){ } 
 			System.out.println(Constant.completeMassage);				
 		}
